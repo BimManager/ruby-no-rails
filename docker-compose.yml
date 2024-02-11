@@ -1,0 +1,25 @@
+version: "3.0"
+services:
+  backend:
+    build:
+      context: .
+    volumes:
+      - type: bind
+        source: .
+        target: /opt/ruby-no-rails
+      - type: volume
+        source: bundle_gems
+        target: /usr/local/bundle
+    ports:
+      - target: 9292
+        published: 9292
+        protocol: tcp
+        mode: host
+    working_dir: /opt/ruby-no-rails
+    entrypoint: ["rackup"]
+    command: ["--host", "0.0.0.0"]
+      
+volumes:
+  bundle_gems:
+
+# /usr/local/bundle/gems
